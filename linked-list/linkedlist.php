@@ -29,6 +29,16 @@ class LinkedList
         }
     }
 
+    public function insertAfter($value, $afterValue)
+    {
+        $existingNode = $this->find($afterValue);
+
+        if ($existingNode) {
+            $newNode = $this->createNewNode($value, $existingNode->next);
+            $existingNode->next = $newNode;
+        }
+    }
+
     public function find(mixed $value): object | null
     {
         if (!$this->head) {
@@ -106,9 +116,10 @@ $linkedList->append('rabbitmq,kafka');
 $linkedList->append('lazy=delete');
 $linkedList->prepend('senior software engineer');
 $linkedList->delete('lazy=delete');
+$linkedList->insertAfter('next,nuxt', 'react,vue');
 
 print_r($linkedList->toArray());
 
-print_r($linkedList->find('react,vue'));
+//print_r($linkedList->find('react,vue'));
 
 echo "\n";

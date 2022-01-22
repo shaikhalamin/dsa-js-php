@@ -5,7 +5,7 @@ class LinkedList {
   }
 
   append(value) {
-    const newNode = { value: value, next: null };
+    const newNode = this.createNewNodeObject(value); 
 
     if (this.tail) {
       this.tail.next = newNode;
@@ -18,10 +18,18 @@ class LinkedList {
   }
 
   prepend(value) {
-    const newNode = { value: value, next: this.head };
+    const newNode = this.createNewNodeObject(value, this.head);
     this.head = newNode;
     if (!this.tail) {
       this.tail = newNode;
+    }
+  }
+
+  insertAfter(value, afterValue) {
+    const existingNode = this.find(afterValue);
+    if (existingNode) {
+      const newNode = this.createNewNodeObject(value, existingNode.next);
+      existingNode.next = newNode;
     }
   }
 
@@ -67,6 +75,13 @@ class LinkedList {
     }
   }
 
+  createNewNodeObject(value, next = null) {
+    return {
+      value,
+      next,
+    };
+  }
+
   toArray() {
     const nodeLists = [];
 
@@ -95,7 +110,9 @@ console.log(
   newList.toArray()
 );
 
-console.log("finding deleted element in node ", newList.find('third'));
+console.log("finding deleted element in node ", newList.find("third"));
 
+console.log("finding existing element in node ", newList.find("shaikh"));
 
-console.log("finding existing element in node ", newList.find('shaikh'));
+newList.insertAfter("alamin", "shaikh");
+console.log("inserting after a element shaikh", newList.toArray());
