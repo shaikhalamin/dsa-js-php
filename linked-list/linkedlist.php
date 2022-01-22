@@ -29,7 +29,7 @@ class LinkedList
         }
     }
 
-    public function find(mixed $value)
+    public function find(mixed $value): object | null
     {
         if (!$this->head) {
             return null;
@@ -39,7 +39,7 @@ class LinkedList
 
         while ($currentNode) {
             if ($currentNode->value === $value) {
-                return $currentNode->value;
+                return $currentNode;
             }
             $currentNode = $currentNode->next;
         }
@@ -72,7 +72,7 @@ class LinkedList
         }
     }
 
-    private function createNewNode(mixed $value, $next = null): stdClass
+    private function createNewNode(mixed $value, $next = null): object
     {
         $newNode = new \stdClass();
         $newNode->value = $value;
